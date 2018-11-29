@@ -34,10 +34,10 @@ class RelaySwitch(object):
 
         self.relay_pin = int(self.config.get('secret',{"gpio_bcm_relay":"12"}).get('gpio_bcm_relay','12'))
 
-        if self.config.get('global',{"activate_level":"high"}).get('activate_level','high') == 'high':
+        if self.config.get('secret',{"activate_level":"high"}).get('activate_level','high') == 'high':
             self.relay_on = GPIO.HIGH
             self.relay_off = GPIO.LOW
-        elif self.config.get('global',{"activate_level":"high"}).get('activate_level','high') == 'low':
+        elif self.config.get('secret',{"activate_level":"high"}).get('activate_level','high') == 'low':
             self.relay_on = GPIO.HIGH
             self.relay_off = GPIO.LOW
 
@@ -45,8 +45,7 @@ class RelaySwitch(object):
         self.gpioInit()
         self.move_to_percentage(100)
         self.start_blocking()
-
-
+        
     # -> hardware related
     def gpioInit(self):
         GPIO.setmode(GPIO.BCM)
