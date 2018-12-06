@@ -46,7 +46,7 @@ sam install actions -g https://github.com/snipsco/snips-app-relay-switch.git
 
 | Config | Description | Value | Default |
 | --- | --- | --- | --- |
-| `gpio_bcm_relay` | The BCM GPIO number of the pin connected with the relay | [Available BCM pin number](https://www.raspberrypi.org/documentation/usage/gpio/README.md) | `12` |
+| `gpio_bcm_relay` | The BCM GPIO number | [Available BCM pin number](https://www.raspberrypi.org/documentation/usage/gpio/README.md) | `12` |
 
 ## Contributing
 
