@@ -39,7 +39,6 @@ class RelaySwitch(object):
             self.snips_user += ':'
 
         self.site_id = str(self.config.get('secret',{"site_id":"default"}).get('site_id','default'))
-        self.site_id = str(self.config.get('secret',{"device_name":"default"}).get('device_name','default'))
         self.gpioInit()
         self.start_blocking()
 
