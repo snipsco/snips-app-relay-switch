@@ -16,13 +16,6 @@ MQTT_IP_ADDR = "localhost"
 MQTT_PORT = 1883
 MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
 
-SNIPS_USER_PREFIX = '{}:'.format('')
-
-GOOD_THRESHOLD = 0.3
-BAD_THRESHOLD = 0.1
-
-COEFFICIENT = 10
-
 class RelaySwitch(object):
 
     def __init__(self):
@@ -79,20 +72,13 @@ class RelaySwitch(object):
         hermes.publish_end_session(intent_message.session_id, "")
 
     def master_intent_callback(self, hermes, intent_message):
-        if intent_message.intent.probability < BAD_THRESHOLD:
-            print "[Return] Possibility is too bad!"
-            return
-        elif intent_message.intent.probability <= GOOD_THRESHOLD:
-            print "[Return] Possibility is not good enough!"
-            hermes.publish_end_session(intent_message.session_id, "Sorry, I am not sure I understood")
-            return
-        if self.extractHouseRoom(intent_message, self.site_id) != intent_message.site_id:
-            print "[Return] Slot [house_room] Unmatch {} != {}".format(self.extractHouseRoom(intent_message, self.site_id), intent_message.site_id)
+        if self.site_id != intent_message.site_id:
+            print "[Return] Site Id unmatch"
             return
 
-        if intent_message.intent.intent_name == '{}relayTurnOn'.format(SNIPS_USER_PREFIX):
+        if intent_message.intent.intent_name == 'relayTurnOn':
             self.turnOnRelay(hermes, intent_message)
-        if intent_message.intent.intent_name == '{}relayTurnOff'.format(SNIPS_USER_PREFIX):
+        if intent_message.intent.intent_name == 'relayTurnOff':
             self.turnOffRelay(hermes, intent_message)
 
     def start_blocking(self):
