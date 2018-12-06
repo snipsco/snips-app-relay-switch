@@ -1,7 +1,11 @@
+[global]
+snips_user_name=
+gpio_bcm_relay=12
+activate_level=high
+
 [secret]
 mqtt_host=localhost
 mqtt_port=1883
 site_id=default
-
-gpio_bcm_relay=12
-activate_level=high
+house_room=
+device_name=relay
