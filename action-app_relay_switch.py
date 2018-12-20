@@ -78,7 +78,7 @@ class RelaySwitch(object):
             self.turnOffRelay(hermes, intent_message)
 
     def start_blocking(self):
-        with Hermes(MQTT_ADDR) as h:
+        with Hermes(self.mqtt_addr) as h:
             h.subscribe_intents(self.master_intent_callback).start()
 
 if __name__ == "__main__":
