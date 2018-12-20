@@ -12,10 +12,6 @@ import RPi.GPIO as GPIO
 
 CONFIG_INI = "config.ini"
 
-MQTT_IP_ADDR = "localhost"
-MQTT_PORT = 1883
-MQTT_ADDR = "{}:{}".format(MQTT_IP_ADDR, str(MQTT_PORT))
-
 class RelaySwitch(object):
 
     def __init__(self):
@@ -33,12 +29,13 @@ class RelaySwitch(object):
         elif self.config.get('global',{"activate_level":"high"}).get('activate_level','high') == 'low':
             self.relay_on = GPIO.HIGH
             self.relay_off = GPIO.LOW
+        
+        self.mqtt_host = self.config.get('secret',{"mqtt_host":"localhost"}).get('mqtt_host','localhost')
+        self.mqtt_port = self.config.get('secret',{"mqtt_port":"1883"}).get('mqtt_port','1883')
+        self.mqtt_addr = "{}:{}".format(self.mqtt_host, self.mqtt_port)
 
-        self.snips_user = str(self.config.get('global',{"snips_user_name":""}).get('snips_user_name',''))
-        if self.snips_user is not '':
-            self.snips_user += ':'
-
-        self.site_id = str(self.config.get('secret',{"site_id":"default"}).get('site_id','default'))
+        self.site_id = self.config.get('secret',{"site_id":"default"}).get('site_id','default')
+        
         self.gpioInit()
         self.start_blocking()
 
